@@ -14,18 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $mail = new PHPMailer;
     $mail->isSMTP();
-    $mail->Host = 'mail.texolenergies.com';
+    $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'texolene@gracious.crystalwebhosting.com';
-    $mail->Password = 'I#C1p586qRrQx]';
+    $mail->Username = 'mathengemordecai@gmail.com';
+    $mail->Password = 'mordecai2002';
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
     $mail->Timeout = 10;
     
     $mail->setFrom($email);
-    $mail->addAddress('texolene@gracious.crystalwebhosting.com', 'Recipient Name');
+    $mail->addAddress('mathengemordecai@gmail.com', 'Recipient Name');
     $mail->isHTML(true);
-    $mail->Subject = 'Contact Form Submission';
+    $mail->Subject = 'New Contact Form Submission';
     
     
     $mail->Body = "
@@ -38,11 +38,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>$message</p>
         
     ";
-    if($mail->send()){
-           header('Location: successfulsubmission.html'); // Redirect to 'thank you' page. Make sure you have it
-       } else {
-
-           $errorMessage = 'Oops, something went wrong. Mailer Error: ' . $mail->ErrorInfo;
-       }
+    
+    // Send email
+    if ($mail->send()) {
+        echo '<h1>Your message has been sent successfully. Thank you!</h1>';
+        echo '<a href="index.html">Go Back</a>';
+        echo '<script>
+                setTimeout(function() {
+                    window.location.href = "index.html";
+                }, 3000);
+              </script>';
+    } else {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    }
 } 
 ?>
